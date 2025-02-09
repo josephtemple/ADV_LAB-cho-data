@@ -1,0 +1,68 @@
+\documentclass[tikz,border=3.14mm]{standalone}
+\usetikzlibrary{decorations.pathreplacing,decorations.pathmorphing, calc, math, patterns}
+\usepackage{amsmath}
+
+\begin{document}
+
+    \tikzmath{\x = 0.4; \y = 0.1; \w = 0.4; \z = 0.6;} 
+
+    \begin{tikzpicture}[scale=1]
+        % Air track
+        \draw[thick] (-4,-1) -- (3.5,-1) -- (4,0) -- (-3.5,0) -- cycle;
+        \node[below, font=\scriptsize, yshift=4] at (0,-1.2) {Air Track}; % Air track label
+
+        % Back side of air track (dark gray triangle without bottom line)
+        \fill[gray!50] (4.5,-1) -- (4,0) -- (3.5,-1) -- cycle;
+        \draw[thick] (4,0) -- (3.5,-1);
+        \draw[thick] (4,0) -- (4.5,-1);
+
+        % Posts
+        \draw[thick] (-3.5,0) -- (-3.5,0.8);
+        \draw[thick] (4,0) -- (4,0.8);
+
+        % Air carts (adjusted size and aspect ratio)
+        \fill[gray!70] (-0.85,0) -- (-0.75,0.2) -- (-0.65,0) -- cycle;
+        \draw[thick] (-0.74,0.21) -- (-0.65,0);
+        \filldraw[fill=gray!20, thick] 
+            (-2,-0.4) -- (-1,-0.4) -- (-0.75,0.2) -- (-1.75,0.2) -- cycle; % Left cart
+        \node[font=\scriptsize] at (-1.4,-0.1) {Cart 1}; % Cart 1 label
+
+        \fill[gray!70] (1.9,0) -- (2,0.2) -- (2.1,0) -- cycle;
+        \draw[thick] (2.01,0.21) -- (2.1,0);
+        \filldraw[fill=gray!20, thick] 
+            (0.75,-0.4) -- (1.75,-0.4) -- (2,0.2) -- (1,0.2) -- cycle; % Right cart
+        \node[font=\scriptsize] at (1.35,-0.1) {Cart 2}; % Cart 2 label
+
+        % Screws
+        \draw[thick] (-1.3,0.2) -- (-1.3,0.6); % Left cart screw
+        \draw[thick] (1.44,0.2) -- (1.44,0.6); % Right cart screw
+
+        % Springs (horizontal at y=0.5, dividing track into thirds)
+        \draw[thick,decorate,decoration={coil,aspect=0.5,segment length=1.2mm,amplitude=1mm}] (-3.5,0.4) -- (-1.3,0.4) node[midway,above, yshift = 2] {$k$};
+        \draw[thick,decorate,decoration={coil,aspect=0.5,segment length=1.2mm,amplitude=1mm}] (-1.3,0.4) -- (1.44,0.4) node[midway,above, yshift = 2] {$k'$};
+        \draw[thick,decorate,decoration={coil,aspect=0.5,segment length=1.2mm,amplitude=1mm}] (1.44,0.4) --(4,0.4)  node[midway,above, yshift = 2] {$k$};
+
+        % Cardboard screen
+        \draw[thick] (-1.8,0.6) -- (-1.8,0.9) .. controls (-1.8,1.1) and (-0.8,1.1) .. (-0.8,0.9) -- (-0.8,0.6) -- cycle;
+        \node[font=\scriptsize] at (-1.3,0.8) {Screen}; % Screen label
+
+        % Square centered with springs and black outline, with circle and adjusted stick and text
+        \draw[thick] (-5.1 + \x,-0.5 + \y) -- (-5.1 + \x,1.2); % Stand 
+        \draw[thick] (-5.1 + \x,-0.5 + \y) -- (-5.3 + \x, -0.5 - \y); % Stand left leg
+        \draw[thick] (-5.1 + \x,-0.5 + \y) -- (-4.9 + \x, -0.5 - \y); % Stand left leg
+
+        \fill[white] (-5.4 + \x, 0.4 + \y) rectangle (-4.8 + \x, 0.9 + \y); % Motion detector fill
+        \draw[thick] (-5.4 + \x, 0.4 + \y) rectangle (-4.8 + \x, 0.9 + \y); % Motion detector outline
+        \filldraw[pattern=crosshatch] (-5.1 + \x , 0.65 + \y) circle (0.2); % Motion detector circle
+
+        \fill[white] (-5.4 + \w, 0.4 - \z) rectangle (-4.8 + \w, 0.9 - \z); % Function generator fill
+        \draw[thick] (-5.4 + \w, 0.4 - \z) rectangle (-4.8 + \w, 0.9 - \z); % Function generator outline
+        \draw (-5.1 + \w , 0.65 - \z) circle (0.2); % Concentric circles for func generator
+        \draw (-5.1 + \w , 0.65 - \z) circle (0.15);
+        \draw (-5.1 + \w , 0.65 - \z) circle (0.1); 
+        \draw (-5.1 + \w , 0.65 - \z) circle (0.05); % Circle centered inside the rectangle
+
+        \node[font=\tiny, align=center] at (-5.1 + 1.18*\x, 0.1 + 10*\y) {Motion Detector}; % Text moved up and to the left
+        \node[font=\tiny, align=center] at (-5.1 + 1.12*\x, -0.2 + 6*\y) {Function Generator};
+    \end{tikzpicture}
+\end{document}
